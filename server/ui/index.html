@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .title }}</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/bigskysoftware/htmx/master/www/static/img/htmx_logo.1.png"
+        type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <script src="https://unpkg.com/htmx.org@1.9.11"
+        integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 110px;
+            overflow: auto;
+            background-color: #2c303a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10px;
+        }
+
+        .button {
+            margin: 4px 0;
+            padding: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        main {
+            margin-left: 220px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div>
+            <a href="/add_person" role="button" class="button">Add Person</a>
+            <a href="/search_person" role="button" class="button">Search Person</a>
+        </div>
+    </nav>
+    
+    <main>
+        {{ template "content" . }}
+    </main>
+    
+</body>
+
+</html>

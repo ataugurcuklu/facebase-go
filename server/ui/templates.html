@@ -1,0 +1,31 @@
+{{ define "content" }}
+{{ if eq .content "home" }}
+<h1>Home</h1>
+<p>Welcome to the face recognition app!</p>
+{{ else if eq .content "add_person" }}
+<h1>Add Person</h1>
+
+<form hx-post="/add_person" hx-trigger="submit" hx-swap="innerHTML" method="post" enctype="multipart/form-data">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required multiple>
+
+    <input type="submit" value="Add Person">
+</form>
+{{ else if eq .content "search_person" }}
+<h1>Search Person</h1>
+
+<div>
+    <form hx-post="/search_person" hx-trigger="submit" hx-swap="innerHTML" hx-target="#result" method="post"
+        enctype="multipart/form-data">
+        <label for="image">Select image:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+<div id="result"></div>
+{{ end }}
+{{ end }}
