@@ -1,31 +1,76 @@
 {{ define "content" }}
 {{ if eq .content "home" }}
-<h1>Home</h1>
-<p>Welcome to the face recognition app!</p>
 {{ else if eq .content "add_person" }}
+
 <h1>Add Person</h1>
 
-<form hx-post="/add_person" hx-trigger="submit" hx-swap="innerHTML" method="post" enctype="multipart/form-data">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
+<div class="form">
+    <form hx-post="/add_person" hx-trigger="submit" hx-swap="innerHTML" hx-target="#result" hx-indicator="#loading"
+        method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
 
-    <label for="image">Image:</label>
-    <input type="file" id="image" name="image" accept="image/*" required multiple>
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required multiple>
 
-    <input type="submit" value="Add Person">
-</form>
+        <input type="submit" value="Add Person">
+    </form>
+</div>
+
+<progress id="loading" class="htmx-indicator"></progress>
+
+<div id="result"></div>
+
 {{ else if eq .content "search_person" }}
+
 <h1>Search Person</h1>
 
 <div>
-    <form hx-post="/search_person" hx-trigger="submit" hx-swap="innerHTML" hx-target="#result" method="post"
-        enctype="multipart/form-data">
+    <button id="toggle" onclick="toggleForms()">Toggle search method</button>
+</div>
+
+<div id="searchByImage" class="form">
+    <form hx-post="/search_person" hx-trigger="submit" hx-swap="innerHTML" hx-target="#result" hx-indicator="#loading"
+        method="post" enctype="multipart/form-data">
         <label for="image">Select image:</label>
         <input type="file" id="image" name="image" accept="image/*">
         <input type="submit" value="Search">
     </form>
 </div>
 
+<div id="searchByName" class="form" style="display: none;">
+    <form hx-post="/search_name" hx-trigger="submit" hx-swap="innerHTML" hx-target="#result" hx-indicator="#loading"
+        method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+<progress id="loading" class="htmx-indicator"></progress>
+
 <div id="result"></div>
+
+{{ else if eq .content "update_person" }}
+
+<h1>Update Person</h1>
+
+<div class="form">
+    <form hx-post="/update_person" hx-trigger="submit" hx-swap="innerHTML" hx-target="#result" hx-indicator="loading"
+        method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="image">Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required multiple>
+
+        <input type="submit" value="Update Person">
+    </form>
+</div>
+
+<progress id="loading" class="htmx-indicator"></progress>
+
+<div id="result"></div>
+
 {{ end }}
 {{ end }}

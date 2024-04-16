@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -8,41 +8,11 @@
     <link rel="icon" href="https://raw.githubusercontent.com/bigskysoftware/htmx/master/www/static/img/htmx_logo.1.png"
         type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
     <script src="https://unpkg.com/htmx.org@1.9.11"
         integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
         crossorigin="anonymous"></script>
-    <style>
-        body {
-            display: flex;
-            margin: 0;
-        }
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 110px;
-            overflow: auto;
-            background-color: #2c303a;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 10px;
-        }
-
-        .button {
-            margin: 4px 0;
-            padding: 8px;
-            width: 100%;
-            text-align: center;
-        }
-
-        main {
-            margin-left: 220px;
-        }
-    </style>
 </head>
 
 <body>
@@ -50,13 +20,41 @@
         <div>
             <a href="/add_person" role="button" class="button">Add Person</a>
             <a href="/search_person" role="button" class="button">Search Person</a>
+            <a href="/update_person" role="button" class="button">Update Person</a>
         </div>
     </nav>
-    
+
+    <button id="theme-changer">Light Mode</button>
     <main>
         {{ template "content" . }}
     </main>
-    
+
+    <script>
+        function toggleForms() {
+            var toggleButton = document.getElementById('toggle');
+            var searchByImage = document.getElementById('searchByImage');
+            var searchByName = document.getElementById('searchByName');
+            if (searchByImage.style.display === "none") {
+                searchByImage.style.display = "block";
+                searchByName.style.display = "none";
+                toggleButton.textContent = "Switch to search by name";
+            } else {
+                searchByImage.style.display = "none";
+                searchByName.style.display = "block";
+                toggleButton.textContent = "Switch to search by image";
+            }
+        }
+
+        document.getElementById('theme-changer').addEventListener('click', function () {
+            var htmlEl = document.documentElement;
+            var currentTheme = htmlEl.getAttribute('data-theme');
+            var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+            var button = document.getElementById('theme-changer');
+            button.textContent = newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        });
+    </script>
+
 </body>
 
 </html>

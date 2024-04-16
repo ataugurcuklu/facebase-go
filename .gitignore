@@ -1,3 +1,5 @@
 images/
 env/
 *.db
+database/__pycache__/
+__pycache__/

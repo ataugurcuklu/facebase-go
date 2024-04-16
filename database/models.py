@@ -9,7 +9,7 @@ class Person(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    main_image = Column(LargeBinary)
+    main_image = Column(String)
 
 class Image(Base):
     __tablename__ = 'images'
